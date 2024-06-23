@@ -1,0 +1,17 @@
+#!/bin/bash
+#SBATCH --qos=privileged
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=5g
+#SBATCH --time=00:500:00
+#SBATCH --output=myjob.out
+
+module load StdEnv/2020
+source venv/bin/activate
+
+pip install matplotlib
+pip install numpy
+pip install scipy
+pip install numba
+mpirun -n $SLURM_NTASKS python ./2D_ising_model-parallel.py
